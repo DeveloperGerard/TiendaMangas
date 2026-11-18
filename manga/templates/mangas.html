@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Catálogo | HunterForMangas{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'manga/catalogo.css' %}">{% endblock %}
+{% block content %}
+<section class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-4">
+        <div><p class="text-success fw-semibold mb-1">BIBLIOTECA</p><h1 class="fw-bold mb-0">Catálogo de mangas</h1></div>
+        <div class="d-flex align-items-center gap-3">
+            <span class="text-secondary">{{ mangas|length }} títulos</span>
+            {% if user.is_authenticated %}<a class="btn btn-success" href="{% url 'crearManga' %}">Agregar manga</a>{% endif %}
+        </div>
+    </div>
+    <div class="row g-3">
+        {% for manga in mangas %}
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+            <a class="card manga-card h-100 text-decoration-none" href="{% url 'detalleManga' manga.pk %}">
+                <div class="manga-cover"><span>{{ manga.titulo|first|upper }}</span></div>
+                <div class="card-body">
+                    <h2 class="h5 card-title text-dark">{{ manga.titulo }}</h2>
+                    <p class="text-secondary mb-2">{{ manga.autor }}</p>
+                    <strong class="text-success">${{ manga.precio }} CLP</strong>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col"><div class="alert alert-light border mb-0">Todavía no hay mangas en el catálogo.</div></div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

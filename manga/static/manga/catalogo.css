@@ -1,0 +1,11 @@
+.manga-card,.detail-card{border-color:#dde1dc;border-radius:10px;background:#fff;color:inherit;overflow:hidden;transition:.18s ease}
+.manga-card:hover{transform:translateY(-3px);border-color:#8eaa96;box-shadow:0 8px 24px #22362a12}
+.manga-cover{min-height:180px;display:grid;place-items:center;background:#e8eee8}
+.manga-cover span{width:64px;height:64px;display:grid;place-items:center;border:2px solid #1f6a45;border-radius:50%;background:#fff;color:#1f6a45;font:800 30px Georgia,serif}
+.detail-card{max-width:900px;margin:auto}
+.detail-layout{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,2fr)}
+.detail-cover{min-height:360px;aspect-ratio:auto;border:0}
+.detail-content{min-width:0;padding:clamp(1.25rem,4vw,3rem)}
+.form-card{max-width:680px;border-color:#dde1dc;border-radius:10px}
+
+@media(max-width:767px){.detail-layout{grid-template-columns:1fr}.detail-cover{min-height:200px}}

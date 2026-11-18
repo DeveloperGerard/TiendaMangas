@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{% if object %}Editar{% else %}Agregar{% endif %} manga | HunterForMangas{% endblock %}
+{% block content %}
+<section class="container py-4">
+    <div class="card form-card mx-auto">
+        <div class="card-body p-4">
+            <h1 class="h3 fw-bold mb-4">{% if object %}Editar manga{% else %}Agregar manga{% endif %}</h1>
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    {% if field.field.widget.input_type == "checkbox" %}
+                        <div class="form-check mb-3">{{ field }}<label class="form-check-label" for="{{ field.id_for_label }}">{{ field.label }}</label></div>
+                    {% else %}
+                        <div class="mb-3"><label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}</div>
+                    {% endif %}
+                    {% for error in field.errors %}<div class="text-danger small mb-2">{{ error }}</div>{% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}<div class="alert alert-danger">{{ error }}</div>{% endfor %}
+                <div class="d-flex gap-2">
+                    <button class="btn btn-success" type="submit">Guardar</button>
+                    <a class="btn btn-outline-secondary" href="{% url 'inicio' %}">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

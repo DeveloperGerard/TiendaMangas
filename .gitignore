@@ -1,0 +1,48 @@
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Archivos locales de Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Configuracion y secretos locales
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+!credenciales.txt
+!prompts_ia.md
+
+# Django
+*.log
+/media/
+/staticfiles/
+
+# Archivos de pruebas y cobertura
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+
+# Herramientas de edicion e IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos temporales y del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~

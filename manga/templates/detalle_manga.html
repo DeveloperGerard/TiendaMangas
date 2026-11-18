@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ manga.titulo }} | HunterForMangas{% endblock %}
+{% block extra_head %}<link rel="stylesheet" href="{% static 'manga/catalogo.css' %}">{% endblock %}
+{% block content %}
+<section class="container py-4">
+    <a class="btn btn-outline-success btn-sm mb-4" href="{% url 'inicio' %}">← Volver al catálogo</a>
+    <article class="card detail-card">
+        <div class="detail-layout">
+            <div class="manga-cover detail-cover"><span>{{ manga.titulo|first|upper }}</span></div>
+            <div class="detail-content">
+                <p class="text-success fw-semibold text-uppercase mb-2">{% if manga.genero %}{{ manga.genero.nombre }}{% else %}Manga{% endif %}</p>
+                <h1 class="fw-bold">{{ manga.titulo }}</h1>
+                <p class="text-secondary">Por {{ manga.autor }}</p>
+                <hr>
+                <dl class="row mb-4">
+                    <dt class="col-sm-5 text-secondary">ISBN</dt><dd class="col-sm-7">{{ manga.isbn }}</dd>
+                    <dt class="col-sm-5 text-secondary">Precio</dt><dd class="col-sm-7">${{ manga.precio }} CLP</dd>
+                    <dt class="col-sm-5 text-secondary">Copias disponibles</dt><dd class="col-sm-7">{{ manga.stock_copias }}</dd>
+                    {% if manga.fecha_publicacion %}<dt class="col-sm-5 text-secondary">Publicación</dt><dd class="col-sm-7">{{ manga.fecha_publicacion|date:"d/m/Y" }}</dd>{% endif %}
+                </dl>
+                {% if manga.disponible %}<span class="badge text-bg-success">Disponible</span>{% else %}<span class="badge text-bg-secondary">No disponible</span>{% endif %}
+                {% if user.is_authenticated %}
+                    <div class="d-flex flex-wrap gap-2 mt-4">
+                        <a class="btn btn-outline-success" href="{% url 'editarManga' manga.pk %}">Editar</a>
+                        <a class="btn btn-outline-danger" href="{% url 'eliminarManga' manga.pk %}">Eliminar</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}

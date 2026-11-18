@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Iniciar sesión | HunterForMangas{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'manga/catalogo.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="container py-5" aria-labelledby="login-title">
+    <div class="card shadow-sm mx-auto" style="max-width: 420px;">
+        <div class="card-body p-4">
+            <h1 id="login-title" class="h3 mb-4 text-center">Iniciar sesión</h1>
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% if next %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+
+                <div class="mb-3">
+                    <label class="form-label" for="{{ form.username.id_for_label }}">Usuario</label>
+                    <input
+                        type="text"
+                        name="{{ form.username.html_name }}"
+                        value="{{ form.username.value|default:'' }}"
+                        id="{{ form.username.id_for_label }}"
+                        class="form-control{% if form.username.errors %} is-invalid{% endif %}"
+                        autocomplete="username"
+                        required
+                        autofocus
+                    >
+                    {% for error in form.username.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label" for="{{ form.password.id_for_label }}">Contraseña</label>
+                    <input
+                        type="password"
+                        name="{{ form.password.html_name }}"
+                        id="{{ form.password.id_for_label }}"
+                        class="form-control{% if form.password.errors %} is-invalid{% endif %}"
+                        autocomplete="current-password"
+                        required
+                    >
+                    {% for error in form.password.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <button class="btn btn-success w-100" type="submit">
+                    Entrar
+                </button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'inicio' %}" class="text-decoration-none">Volver al catálogo</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
